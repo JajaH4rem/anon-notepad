@@ -24,9 +24,9 @@ export async function POST(request: Request) {
   const body = await request.json();
   const { title, content, userId } = body;
 
-  if (!title || !content || !userId) {
+  if (!title || !userId) {
     return Response.json(
-      { message: "title, content, and userId are required" },
+      { message: "title and userId are required" },
       { status: 400 }
     );
   }
