@@ -10,6 +10,8 @@ export default function Toolbar({
 
   return (
     <div className="h-10 border-b relative">
+      {/* flip isOpen state on and off */}
+      {/* used as condition for conditional render */}
       <button
         onClick={() => {
           setIsOpen(!isOpen);
@@ -19,16 +21,19 @@ export default function Toolbar({
         File
       </button>
 
+      {/* Conditional render for File button dropdown */}
       {isOpen && (
         <div className="absolute top-10 left-0 border bg-black">
           <button
             onClick={() => {
+              // fetch userId and POST new note with defaults
               const userId = localStorage.getItem("anonymousUserId");
 
               if (!userId) {
                 return;
               }
 
+              // IIFE for notes POST
               (async () => {
                 await fetch("/api/notes", {
                   method: "POST",
