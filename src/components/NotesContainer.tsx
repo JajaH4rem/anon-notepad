@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 export default function NotesContainer() {
   const [notes, setNotes] = useState([]);
 
+  // invokable function to fetch notes
   async function fetchNotes() {
     const userId = localStorage.getItem("anonymousUserId");
     if (!userId) return;
@@ -17,6 +18,7 @@ export default function NotesContainer() {
     setNotes(data);
   }
 
+  // initial render fetch via invoking fetchNotes
   useEffect(() => {
     fetchNotes();
   }, []);

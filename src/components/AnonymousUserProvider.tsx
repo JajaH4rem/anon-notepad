@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { ReactNode } from "react";
 
+// accepts children props, which should be only something React can render/provide
 export default function AnonymousUserProvider({
   children,
 }: {

@@ -1,3 +1,5 @@
+// sidebar accepts notes object with 3 string fields
+// id, title, and content
 export default function Sidebar({
   notes,
 }: {

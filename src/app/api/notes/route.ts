@@ -31,6 +31,7 @@ export async function POST(request: Request) {
     );
   }
 
+  // insert + return inserted value after
   const result = await db
     .insert(notesTable)
     .values({ anonymousUserId: userId, title: title, content: content })
