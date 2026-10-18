@@ -1,7 +1,11 @@
 "use client";
 import { useState } from "react";
 
-export default function Toolbar() {
+export default function Toolbar({
+  onNoteCreatedAction,
+}: {
+  onNoteCreatedAction: () => void;
+}) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -36,6 +40,7 @@ export default function Toolbar() {
                   }),
                 });
                 setIsOpen(false);
+                onNoteCreatedAction();
               })();
             }}
           >
