@@ -26,6 +26,8 @@ export default function Editor({
   }
   useEffect(() => {
     if (!selectedNote) return;
+    if (title === selectedNote.title && content === selectedNote.content)
+      return;
 
     // after 1 sec send the PATCH, with title, and content as payload
     // id is sent as path parameter
