@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 
 export default function Editor({
   selectedNote,
+  onNoteSavedAction,
 }: {
   selectedNote: { id: string; title: string; content: string } | null;
+  onNoteSavedAction: () => void;
 }) {
   // title and content states
   const [title, setTitle] = useState("");
@@ -27,12 +29,14 @@ export default function Editor({
 
     // after 1 sec send the PATCH, with title, and content as payload
     // id is sent as path parameter
-    const timer = setTimeout(() => {
-      fetch(`/api/notes/${selectedNote.id}`, {
+    const timer = setTimeout(async () => {
+      await fetch(`/api/notes/${selectedNote.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title: title, content: content }),
       });
+
+      onNoteSavedAction();
     }, 1000);
     return () => clearTimeout(timer);
   }, [title, content]);

@@ -40,7 +40,7 @@ export default function NotesContainer() {
         <Toolbar onNoteCreatedAction={fetchNotes} />
 
         {/* Editor -- takes bottom portion */}
-        <Editor selectedNote={selectedNote} />
+        <Editor selectedNote={selectedNote} onNoteSavedAction={fetchNotes} />
       </div>
     </div>
   );
