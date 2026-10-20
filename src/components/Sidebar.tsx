@@ -15,7 +15,7 @@ export default function Sidebar({
     title: string;
     content: string;
   }) => void;
-  onNoteDeletedAction: () => void;
+  onNoteDeletedAction: (deletedId: string) => void;
 }) {
   const [openNoteId, setOpenNoteId] = useState<string | null>(null);
 
@@ -40,7 +40,7 @@ export default function Sidebar({
               <button
                 onClick={async () => {
                   await onDelete(note.id);
-                  onNoteDeletedAction();
+                  onNoteDeletedAction(note.id);
                 }}
               >
                 Delete
