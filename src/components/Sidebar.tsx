@@ -17,6 +17,13 @@ export default function Sidebar({
 }) {
   const [openNoteId, setOpenNoteId] = useState<string | null>(null);
 
+  async function onDelete(id: string) {
+    await fetch(`/api/notes/${openNoteId}`, {
+      method: "DELETE",
+    });
+    setOpenNoteId(null);
+  }
+
   return (
     <div className="w-48 border-r">
       {openNoteId && (
@@ -28,7 +35,7 @@ export default function Sidebar({
           <button onClick={() => setOpenNoteId(note.id)}>...</button>
           {openNoteId === note.id && (
             <div className="absolute top-10 right-0 border bg-black">
-              <button>Delete</button>
+              <button onClick={() => onDelete(note.id)}>Delete</button>
             </div>
           )}
         </div>
