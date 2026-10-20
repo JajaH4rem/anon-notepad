@@ -40,3 +40,35 @@ export async function PATCH(
 
   return Response.json(note, { status: 200 });
 }
+
+// DELETE notes. takes in notes id
+export async function DELETE(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  const { id } = params; // /api/notes/abc-123
+
+  // return if no id provided
+  if (!id) {
+    return Response.json({ message: "id is required" }, { status: 400 });
+  }
+
+  // DELETE
+  // FROM notesTable
+  // WHERE id = param id
+  // RETURNING *;
+  const result = await db
+    .delete(notesTable)
+    .where(eq(notesTable.id, id))
+    .returning();
+
+  // grab first and only item from result
+  const note = result[0];
+
+  // return 404 when note not found
+  if (!note) {
+    return Response.json({ message: "Note not found" }, { status: 404 });
+  }
+
+  return Response.json(note, { status: 200 });
+}
