@@ -20,3 +20,5 @@ An anonymous online notepad. Users can create, edit, save, and manage plain-text
 - Import and export plain-text files
 - Anonymous access without registration
 - Notes isolated per browser session
+
+[Architecture](docs/architecture.md)
