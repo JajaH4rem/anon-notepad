@@ -32,7 +32,14 @@ export default function NotesContainer() {
     /* Container for Sidebar, Toolbar, and Editor. Takes space side-by-side */
     <div className="flex flex-1 overflow-hidden">
       {/* Sidebar -- takes left side of container */}
-      <Sidebar notes={notes} onSelectedAction={setSelectedNote} />
+      <Sidebar
+        notes={notes}
+        onSelectedAction={setSelectedNote}
+        onNoteDeletedAction={(deletedId: string) => {
+          fetchNotes();
+          if (selectedNote?.id === deletedId) setSelectedNote(null);
+        }}
+      />
 
       {/* Inner container for Toolbar and Editor -- right side -- stacks vertically */}
       <div className="flex flex-col flex-1">

@@ -46,8 +46,7 @@ export async function DELETE(
   request: Request,
   { params }: { params: { id: string } }
 ) {
-  const { id } = params; // /api/notes/abc-123
-
+  const { id } = await params; // /api/notes/abc-123
   // return if no id provided
   if (!id) {
     return Response.json({ message: "id is required" }, { status: 400 });
