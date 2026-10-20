@@ -11,6 +11,14 @@ An anonymous online notepad. Users can create, edit, save, and manage plain-text
 - **ORM:** Drizzle ORM
 - **Hosting:** Vercel
 
+## Architecture
+See [docs/architecture.md](docs/architecture.md) for
+
+- Component state ownership
+- prop flow
+- API calls
+- Database schema
+
 ## Core Features
 
 - Create, rename, and delete notes
@@ -20,5 +28,3 @@ An anonymous online notepad. Users can create, edit, save, and manage plain-text
 - Import and export plain-text files
 - Anonymous access without registration
 - Notes isolated per browser session
-
-[Architecture](docs/architecture.md)
