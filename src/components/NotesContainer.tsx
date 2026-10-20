@@ -35,7 +35,10 @@ export default function NotesContainer() {
       <Sidebar
         notes={notes}
         onSelectedAction={setSelectedNote}
-        onNoteDeletedAction={fetchNotes}
+        onNoteDeletedAction={(deletedId: string) => {
+          fetchNotes();
+          if (selectedNote?.id === deletedId) setSelectedNote(null);
+        }}
       />
 
       {/* Inner container for Toolbar and Editor -- right side -- stacks vertically */}
