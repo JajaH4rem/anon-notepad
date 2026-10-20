@@ -1,6 +1,6 @@
 import { db } from "@/db";
 import { notesTable } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { eq, desc } from "drizzle-orm";
 
 // GET -- retrieve user's notes
 export async function GET(request: Request) {
@@ -14,7 +14,8 @@ export async function GET(request: Request) {
   const notes = await db
     .select()
     .from(notesTable)
-    .where(eq(notesTable.anonymousUserId, userId));
+    .where(eq(notesTable.anonymousUserId, userId))
+    .orderBy(desc(notesTable.createdAt));
 
   return Response.json(notes, { status: 200 });
 }

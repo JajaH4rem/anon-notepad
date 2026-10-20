@@ -2,8 +2,9 @@ import { db } from "@/db";
 import { notesTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
-// get id from path params
+// PATCH a note using id [id] /id
 export async function PATCH(
+  // get id from path params
   request: Request,
   { params }: { params: { id: string } }
 ) {
