@@ -7,6 +7,7 @@ import { useState } from "react";
 export default function Sidebar({
   notes,
   onSelectedAction,
+  onNoteDeletedAction,
 }: {
   notes: { id: string; title: string; content: string }[];
   onSelectedAction: (note: {
@@ -14,11 +15,12 @@ export default function Sidebar({
     title: string;
     content: string;
   }) => void;
+  onNoteDeletedAction: () => void;
 }) {
   const [openNoteId, setOpenNoteId] = useState<string | null>(null);
 
   async function onDelete(id: string) {
-    await fetch(`/api/notes/${openNoteId}`, {
+    await fetch(`/api/notes/${id}`, {
       method: "DELETE",
     });
     setOpenNoteId(null);
@@ -35,7 +37,14 @@ export default function Sidebar({
           <button onClick={() => setOpenNoteId(note.id)}>...</button>
           {openNoteId === note.id && (
             <div className="absolute top-10 right-0 border bg-black">
-              <button onClick={() => onDelete(note.id)}>Delete</button>
+              <button
+                onClick={async () => {
+                  await onDelete(note.id);
+                  onNoteDeletedAction();
+                }}
+              >
+                Delete
+              </button>
             </div>
           )}
         </div>
