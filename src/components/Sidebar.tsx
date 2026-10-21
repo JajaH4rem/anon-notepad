@@ -101,7 +101,18 @@ export default function Sidebar({
                     onNoteDeletedAction(modal.noteId);
                   }
                   if (modal.type === "rename") {
-                    /* rename logic */
+                    const noOverwriteContent = notes.find(
+                      (note) => note.id === modal.noteId
+                    );
+                    await fetch(`/api/notes/${modal.noteId}`, {
+                      method: "PATCH",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({
+                        title: renameValue,
+                        content: noOverwriteContent?.content ?? "",
+                      }),
+                    });
+                    onNoteRenamedAction();
                   }
                   setModal(null);
                 }}
