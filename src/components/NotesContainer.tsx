@@ -39,6 +39,7 @@ export default function NotesContainer() {
           fetchNotes();
           if (selectedNote?.id === deletedId) setSelectedNote(null);
         }}
+        onNoteRenamedAction={fetchNotes}
       />
 
       {/* Inner container for Toolbar and Editor -- right side -- stacks vertically */}

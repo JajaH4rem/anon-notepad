@@ -8,6 +8,7 @@ export default function Sidebar({
   notes,
   onSelectedAction,
   onNoteDeletedAction,
+  onNoteRenamedAction,
 }: {
   notes: { id: string; title: string; content: string }[];
   onSelectedAction: (note: {
@@ -16,6 +17,7 @@ export default function Sidebar({
     content: string;
   }) => void;
   onNoteDeletedAction: (deletedId: string) => void;
+  onNoteRenamedAction: () => void;
 }) {
   const [renameValue, setRenameValue] = useState<string>("");
   const [openNoteId, setOpenNoteId] = useState<string | null>(null);
