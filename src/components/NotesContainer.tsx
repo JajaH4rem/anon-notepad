@@ -39,6 +39,12 @@ export default function NotesContainer() {
           fetchNotes();
           if (selectedNote?.id === deletedId) setSelectedNote(null);
         }}
+        onNoteRenamedAction={(renamedId: string, newTitle: string) => {
+          if (renamedId === selectedNote?.id) {
+            setSelectedNote({ ...selectedNote, title: newTitle });
+          }
+          fetchNotes();
+        }}
       />
 
       {/* Inner container for Toolbar and Editor -- right side -- stacks vertically */}
