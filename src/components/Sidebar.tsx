@@ -33,6 +33,17 @@ export default function Sidebar({
     setOpenNoteId(null);
   }
 
+  async function onRename(id: string, content: string) {
+    await fetch(`/api/notes/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        title: renameValue,
+        content: content,
+      }),
+    });
+  }
+
   return (
     <div className="w-48 border-r">
       {openNoteId && (
@@ -104,14 +115,10 @@ export default function Sidebar({
                     const noOverwriteContent = notes.find(
                       (note) => note.id === modal.noteId
                     );
-                    await fetch(`/api/notes/${modal.noteId}`, {
-                      method: "PATCH",
-                      headers: { "Content-Type": "application/json" },
-                      body: JSON.stringify({
-                        title: renameValue,
-                        content: noOverwriteContent?.content ?? "",
-                      }),
-                    });
+                    await onRename(
+                      modal.noteId,
+                      noOverwriteContent?.content ?? ""
+                    );
                     onNoteRenamedAction(modal.noteId, renameValue);
                     setOpenNoteId(null);
                   }
