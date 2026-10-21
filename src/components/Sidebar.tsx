@@ -17,7 +17,7 @@ export default function Sidebar({
     content: string;
   }) => void;
   onNoteDeletedAction: (deletedId: string) => void;
-  onNoteRenamedAction: () => void;
+  onNoteRenamedAction: (renamedId: string, renamedTitle: string) => void;
 }) {
   const [renameValue, setRenameValue] = useState<string>("");
   const [openNoteId, setOpenNoteId] = useState<string | null>(null);
@@ -112,7 +112,8 @@ export default function Sidebar({
                         content: noOverwriteContent?.content ?? "",
                       }),
                     });
-                    onNoteRenamedAction();
+                    onNoteRenamedAction(modal.noteId, renameValue);
+                    setOpenNoteId(null);
                   }
                   setModal(null);
                 }}
