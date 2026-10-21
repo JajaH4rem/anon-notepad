@@ -17,7 +17,12 @@ export default function Sidebar({
   }) => void;
   onNoteDeletedAction: (deletedId: string) => void;
 }) {
+  const [renameValue, setRenameValue] = useState<string>("");
   const [openNoteId, setOpenNoteId] = useState<string | null>(null);
+  const [modal, setModal] = useState<{
+    type: "rename" | "delete";
+    noteId: string;
+  } | null>(null);
 
   async function onDelete(id: string) {
     await fetch(`/api/notes/${id}`, {
@@ -38,17 +43,73 @@ export default function Sidebar({
           {openNoteId === note.id && (
             <div className="absolute top-10 right-0 border bg-black">
               <button
-                onClick={async () => {
-                  await onDelete(note.id);
-                  onNoteDeletedAction(note.id);
+                onClick={() => {
+                  setModal({ type: "delete", noteId: note.id });
                 }}
               >
                 Delete
+              </button>
+              <button
+                onClick={() => setModal({ type: "rename", noteId: note.id })}
+              >
+                Rename
               </button>
             </div>
           )}
         </div>
       ))}
+
+      {modal && (
+        <div className="fixed inset-0 flex items-center justify-center">
+          <div
+            className="fixed inset-0 bg-black opacity-50"
+            onClick={() => setModal(null)}
+          />
+          <div className="relative z-10 bg-white text-black p-4">
+            <p>
+              {modal.type === "delete"
+                ? "Delete this note?"
+                : "Rename this note?"}
+            </p>
+
+            {modal.type === "rename" && (
+              <input
+                value={renameValue}
+                onChange={(e) => setRenameValue(e.target.value)}
+              />
+            )}
+
+            {modal.type === "delete" && (
+              <p className="text-red-500">This cannot be undone.</p>
+            )}
+
+            <div className="flex gap-2">
+              <button
+                onClick={() => {
+                  setModal(null);
+                  setOpenNoteId(null);
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={async () => {
+                  if (modal.type === "delete") {
+                    await onDelete(modal.noteId);
+                    onNoteDeletedAction(modal.noteId);
+                  }
+                  if (modal.type === "rename") {
+                    /* rename logic */
+                  }
+                  setModal(null);
+                }}
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
