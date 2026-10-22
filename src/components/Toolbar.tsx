@@ -1,10 +1,11 @@
 "use client";
 import { useState } from "react";
+import type { Note } from "@/types";
 
 export default function Toolbar({
   onNoteCreatedAction,
 }: {
-  onNoteCreatedAction: () => void;
+  onNoteCreatedAction: (note: Note) => void;
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -36,7 +37,7 @@ export default function Toolbar({
 
               // IIFE for notes POST
               (async () => {
-                await fetch("/api/notes", {
+                const response = await fetch("/api/notes", {
                   method: "POST",
                   headers: { "Content-Type": "application/json" },
                   body: JSON.stringify({
@@ -45,8 +46,9 @@ export default function Toolbar({
                     userId: userId,
                   }),
                 });
+                const note = (await response.json()) as Note;
                 setIsOpen(false);
-                onNoteCreatedAction();
+                onNoteCreatedAction(note);
               })();
             }}
           >
