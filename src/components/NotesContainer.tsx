@@ -47,7 +47,12 @@ export default function NotesContainer() {
       {/* Inner container for Toolbar and Editor -- right side -- stacks vertically */}
       <div className="flex flex-col flex-1">
         {/* Toolbar -- takes top portion */}
-        <Toolbar onNoteCreatedAction={fetchNotes} />
+        <Toolbar
+          onNoteCreatedAction={(note: Note) => {
+            fetchNotes();
+            setSelectedNote(note);
+          }}
+        />
 
         {/* Editor -- takes bottom portion */}
         <Editor selectedNote={selectedNote} onNoteSavedAction={fetchNotes} />
