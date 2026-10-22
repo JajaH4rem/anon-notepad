@@ -9,22 +9,21 @@ export default function Toolbar({
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="h-10 border-b relative">
+    <div className="h-10 border-b border-border bg-surface flex items-center px-2 relative">
       {/* flip isOpen state on and off */}
       {/* used as condition for conditional render */}
       <button
-        onClick={() => {
-          setIsOpen(!isOpen);
-        }}
+        onClick={() => setIsOpen(!isOpen)}
+        className="text-sm text-muted hover:text-foreground px-2 py-1"
       >
-        {" "}
         File
       </button>
 
       {/* Conditional render for File button dropdown */}
       {isOpen && (
-        <div className="absolute top-10 left-0 border bg-black">
+        <div className="absolute top-full left-0 border border-border bg-surface shadow-sm z-10 min-w-32">
           <button
+            className="w-full text-left px-3 py-1.5 text-sm text-foreground hover:bg-background"
             onClick={() => {
               // fetch userId and POST new note with defaults
               const userId = localStorage.getItem("anonymousUserId");
