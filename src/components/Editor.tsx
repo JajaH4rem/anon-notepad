@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
+import type { Note } from "@/types";
 
 export default function Editor({
   selectedNote,
   onNoteSavedAction,
 }: {
-  selectedNote: { id: string; title: string; content: string } | null;
+  selectedNote: Note | null;
   onNoteSavedAction: () => void;
 }) {
   // title and content states
@@ -64,7 +65,9 @@ export default function Editor({
         </div>
       ) : (
         <div className="flex-1 flex items-center justify-center">
-          <p className="text-sm text-subtle">Select a note or create a new one</p>
+          <p className="text-sm text-subtle">
+            Select a note or create a new one
+          </p>
         </div>
       )}
     </div>

@@ -3,16 +3,13 @@
 import Editor from "@/components/Editor";
 import Sidebar from "@/components/Sidebar";
 import Toolbar from "@/components/Toolbar";
+import type { Note } from "@/types";
 
 import { useEffect, useState } from "react";
 
 export default function NotesContainer() {
-  const [selectedNote, setSelectedNote] = useState<{
-    id: string;
-    title: string;
-    content: string;
-  } | null>(null);
-  const [notes, setNotes] = useState([]);
+  const [selectedNote, setSelectedNote] = useState<Note | null>(null);
+  const [notes, setNotes] = useState<Note[]>([]);
 
   // invokable function to fetch notes
   async function fetchNotes() {
