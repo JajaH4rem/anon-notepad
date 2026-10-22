@@ -45,25 +45,35 @@ export default function Sidebar({
   }
 
   return (
-    <div className="w-48 border-r">
+    <div className="w-48 border-r border-border bg-surface flex flex-col">
       {openNoteId && (
         <div className="fixed inset-0" onClick={() => setOpenNoteId(null)} />
       )}
       {notes.map((note) => (
-        <div key={note.id} className="flex justify-between relative">
-          <div onClick={() => onSelectedAction(note)}> {note.title} </div>
-          <button onClick={() => setOpenNoteId(note.id)}>...</button>
+        <div key={note.id} className="flex items-center justify-between relative px-2 py-1 hover:bg-background group">
+          <div
+            onClick={() => onSelectedAction(note)}
+            className="flex-1 truncate text-sm text-foreground cursor-pointer"
+          >
+            {note.title}
+          </div>
+          <button
+            onClick={() => setOpenNoteId(note.id)}
+            className="text-muted hover:text-foreground opacity-0 group-hover:opacity-100 px-1 text-xs"
+          >
+            •••
+          </button>
           {openNoteId === note.id && (
-            <div className="absolute top-10 right-0 border bg-black">
+            <div className="absolute top-full right-0 z-10 border border-border bg-surface shadow-sm min-w-24">
               <button
-                onClick={() => {
-                  setModal({ type: "delete", noteId: note.id });
-                }}
+                onClick={() => setModal({ type: "delete", noteId: note.id })}
+                className="w-full text-left px-3 py-1.5 text-sm text-foreground hover:bg-background"
               >
                 Delete
               </button>
               <button
                 onClick={() => setModal({ type: "rename", noteId: note.id })}
+                className="w-full text-left px-3 py-1.5 text-sm text-foreground hover:bg-background"
               >
                 Rename
               </button>
@@ -78,30 +88,27 @@ export default function Sidebar({
             className="fixed inset-0 bg-black opacity-50"
             onClick={() => setModal(null)}
           />
-          <div className="relative z-10 bg-white text-black p-4">
-            <p>
-              {modal.type === "delete"
-                ? "Delete this note?"
-                : "Rename this note?"}
+          <div className="relative z-10 bg-surface border border-border p-4 w-64 shadow-md">
+            <p className="text-sm text-heading font-medium mb-3">
+              {modal.type === "delete" ? "Delete this note?" : "Rename this note?"}
             </p>
 
             {modal.type === "rename" && (
               <input
                 value={renameValue}
                 onChange={(e) => setRenameValue(e.target.value)}
+                className="w-full border border-border bg-background text-foreground text-sm px-2 py-1 mb-3 outline-none focus:border-muted"
               />
             )}
 
             {modal.type === "delete" && (
-              <p className="text-red-500">This cannot be undone.</p>
+              <p className="text-xs text-muted mb-3">This cannot be undone.</p>
             )}
 
-            <div className="flex gap-2">
+            <div className="flex gap-2 justify-end">
               <button
-                onClick={() => {
-                  setModal(null);
-                  setOpenNoteId(null);
-                }}
+                onClick={() => { setModal(null); setOpenNoteId(null); }}
+                className="px-3 py-1 text-sm text-muted hover:text-foreground border border-border"
               >
                 Cancel
               </button>
@@ -115,15 +122,13 @@ export default function Sidebar({
                     const noOverwriteContent = notes.find(
                       (note) => note.id === modal.noteId
                     );
-                    await onRename(
-                      modal.noteId,
-                      noOverwriteContent?.content ?? ""
-                    );
+                    await onRename(modal.noteId, noOverwriteContent?.content ?? "");
                     onNoteRenamedAction(modal.noteId, renameValue);
                     setOpenNoteId(null);
                   }
                   setModal(null);
                 }}
+                className="px-3 py-1 text-sm text-heading hover:text-foreground border border-border"
               >
                 Confirm
               </button>
