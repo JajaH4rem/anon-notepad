@@ -83,12 +83,12 @@ export default function Sidebar({
       ))}
 
       {modal && (
-        <div className="fixed inset-0 flex items-center justify-center">
+        <div className="fixed inset-0 flex items-center justify-center z-10">
           <div
             className="fixed inset-0 bg-black opacity-50"
             onClick={() => setModal(null)}
           />
-          <div className="relative z-10 bg-surface border border-border p-4 w-64 shadow-md">
+          <div className="relative z-20 bg-surface border border-border p-4 w-64 shadow-md">
             <p className="text-sm text-heading font-medium mb-3">
               {modal.type === "delete"
                 ? "Delete this note?"
