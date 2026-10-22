@@ -22,7 +22,14 @@ export default function NotesContainer() {
 
   // initial render fetch via invoking fetchNotes
   useEffect(() => {
-    fetchNotes();
+    async function loadNotes() {
+      const userId = localStorage.getItem("anonymousUserId");
+      if (!userId) return;
+      const response = await fetch(`/api/notes?userId=${userId}`);
+      const data = await response.json();
+      setNotes(data);
+    }
+    loadNotes();
   }, []);
 
   return (

@@ -16,10 +16,13 @@ export default function Editor({
     /* Sync NotesContainer states with our local states */
   }
   useEffect(() => {
-    if (selectedNote) {
-      setTitle(selectedNote.title);
-      setContent(selectedNote.content);
+    function syncNote() {
+      if (selectedNote) {
+        setTitle(selectedNote.title);
+        setContent(selectedNote.content);
+      }
     }
+    syncNote();
   }, [selectedNote]);
 
   {
@@ -42,7 +45,7 @@ export default function Editor({
       onNoteSavedAction();
     }, 1000);
     return () => clearTimeout(timer);
-  }, [title, content]);
+  }, [title, content, onNoteSavedAction, selectedNote]);
 
   return (
     <div className="flex-1 flex flex-col bg-background overflow-hidden">
