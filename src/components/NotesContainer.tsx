@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 export default function NotesContainer() {
   const [selectedNote, setSelectedNote] = useState<Note | null>(null);
   const [notes, setNotes] = useState<Note[]>([]);
+  const [openTabs, setOpenTabs] = useState<Note[]>([]);
 
   // invokable function to fetch notes
   async function fetchNotes() {
@@ -18,6 +19,14 @@ export default function NotesContainer() {
     const response = await fetch(`/api/notes?userId=${userId}`);
     const data = await response.json();
     setNotes(data);
+  }
+
+  // helper for adding openTabs
+  function openTab(note: Note) {
+    setOpenTabs((previous) => {
+      if (previous.find((tab) => tab.id === note.id)) return previous;
+      return [...previous, note];
+    });
   }
 
   // initial render fetch via invoking fetchNotes
