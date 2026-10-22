@@ -55,10 +55,13 @@ export default function Sidebar({
       <div className="h-10 px-4 flex items-center gap-2 text-sm border-border">
         {/* render folder icon beside: user/anon-notes */}
         <FolderIcon />
-        {userId ? `${userId.slice(0, 6)}/anon-notes` : "anon-notes"}
+        {userId ? `${userId.slice(0, 6)} / anon-notes` : "anon-notes"}
       </div>
       {openNoteId && (
-        <div className="fixed inset-0 z-10" onClick={() => setOpenNoteId(null)} />
+        <div
+          className="fixed inset-0 z-10"
+          onClick={() => setOpenNoteId(null)}
+        />
       )}
       <div className="ml-3 border-l border-subtle">
         {notes.map((note) => (
