@@ -44,7 +44,7 @@ export default function Sidebar({
   return (
     <div className="w-48 border-r border-border bg-surface flex flex-col">
       {openNoteId && (
-        <div className="fixed inset-0" onClick={() => setOpenNoteId(null)} />
+        <div className="fixed inset-0 z-10" onClick={() => setOpenNoteId(null)} />
       )}
       {notes.map((note) => (
         <div
