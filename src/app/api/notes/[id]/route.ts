@@ -6,7 +6,7 @@ import { eq } from "drizzle-orm";
 export async function PATCH(
   // get id from path params
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params; // /api/notes/abc-123
   const body = await request.json();
@@ -44,7 +44,7 @@ export async function PATCH(
 // DELETE notes. takes in notes id
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params; // /api/notes/abc-123
   // return if no id provided
