@@ -63,22 +63,30 @@ export default function Sidebar({
           >
             •••
           </button>
-          {openNoteId === note.id && (
-            <div className="absolute top-full right-0 z-10 border border-border bg-surface shadow-sm min-w-24">
-              <button
-                onClick={() => setModal({ type: "delete", noteId: note.id })}
-                className="w-full text-left px-3 py-1.5 text-sm text-foreground hover:bg-background"
-              >
-                Delete
-              </button>
-              <button
-                onClick={() => setModal({ type: "rename", noteId: note.id })}
-                className="w-full text-left px-3 py-1.5 text-sm text-foreground hover:bg-background"
-              >
-                Rename
-              </button>
-            </div>
-          )}
+          
+{openNoteId === note.id && (
+  <div className="absolute top-full right-0 z-10 border border-border bg-surface shadow-sm min-w-24">
+    <button
+      onClick={() => {
+        setOpenNoteId(null);
+        setModal({ type: "delete", noteId: note.id });
+      }}
+      className="w-full text-left px-3 py-1.5 text-sm text-foreground hover:bg-background"
+    >
+      Delete
+    </button>
+    <button
+      onClick={() => {
+        setOpenNoteId(null);
+        setModal({ type: "rename", noteId: note.id });
+      }}
+      className="w-full text-left px-3 py-1.5 text-sm text-foreground hover:bg-background"
+    >
+      Rename
+    </button>
+  </div>
+)}
+
         </div>
       ))}
 
