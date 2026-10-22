@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { Note } from "@/types";
+import FolderIcon from "./icons/FolderIcon";
 
 // sidebar accepts notes object with 3 string fields
 // id, title, and content
@@ -51,7 +52,9 @@ export default function Sidebar({
 
   return (
     <div className="w-48 border-r border-border bg-surface flex flex-col">
-      <div className="h-10 px-4 flex items-center text-sm border-border">
+      <div className="h-10 px-4 flex items-center gap-2 text-sm border-border">
+        {/* render folder icon beside: user/anon-notes */}
+        <FolderIcon />
         {userId ? `${userId.slice(0, 6)}/anon-notes` : "anon-notes"}
       </div>
       {openNoteId && (
