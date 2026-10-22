@@ -44,23 +44,27 @@ export default function Editor({
   }, [title, content]);
 
   return (
-    <div className="flex-1">
+    <div className="flex-1 flex flex-col bg-background overflow-hidden">
       {selectedNote ? (
-        <div className="flex flex-col">
+        <div className="flex flex-col flex-1">
           {/* title dynamic input, default title as value */}
           <input
             value={title}
             onChange={(event) => setTitle(event.target.value)}
+            className="w-full px-6 pt-6 pb-2 text-lg font-medium text-heading bg-transparent outline-none border-none placeholder:text-subtle"
+            placeholder="Untitled"
           />
           {/* content dynamic typing, default content as value */}
           <textarea
             value={content}
             onChange={(event) => setContent(event.target.value)}
+            className="flex-1 w-full px-6 py-2 text-sm text-foreground bg-transparent outline-none border-none resize-none placeholder:text-subtle"
+            placeholder="Start writing..."
           />
         </div>
       ) : (
-        <div>
-          <p>Select a note or create a new one</p>
+        <div className="flex-1 flex items-center justify-center">
+          <p className="text-sm text-subtle">Select a note or create a new one</p>
         </div>
       )}
     </div>
