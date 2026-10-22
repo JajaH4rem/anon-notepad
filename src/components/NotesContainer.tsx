@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 export default function NotesContainer() {
   const [selectedNote, setSelectedNote] = useState<Note | null>(null);
   const [notes, setNotes] = useState<Note[]>([]);
+  const [openTabs, setOpenTabs] = useState<Note[]>([]);
 
   // invokable function to fetch notes
   async function fetchNotes() {
