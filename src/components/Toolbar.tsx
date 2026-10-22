@@ -18,7 +18,9 @@ export default function Toolbar({
       >
         File
       </button>
-
+      {isOpen && (
+        <div className="fixed inset-0" onClick={() => setIsOpen(false)} />
+      )}
       {/* Conditional render for File button dropdown */}
       {isOpen && (
         <div className="absolute top-full left-0 border border-border bg-surface shadow-sm z-10 min-w-32">
