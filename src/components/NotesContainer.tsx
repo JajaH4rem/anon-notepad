@@ -21,6 +21,14 @@ export default function NotesContainer() {
     setNotes(data);
   }
 
+  // helper for adding openTabs
+  function openTab(note: Note) {
+    setOpenTabs((previous) => {
+      if (previous.find((tab) => tab.id === note.id)) return previous;
+      return [...previous, note];
+    });
+  }
+
   // initial render fetch via invoking fetchNotes
   useEffect(() => {
     async function loadNotes() {
