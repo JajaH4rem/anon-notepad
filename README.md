@@ -2,6 +2,8 @@
 
 An anonymous online notepad. Users can create, edit, save, and manage plain-text notes without registering an account. Notes are stored in PostgreSQL and associated with a browser-based anonymous identifier.
 
+Built as a learning project to practice full-stack web development. Contributions from other learners are welcome. See CONTRIBUTING.md.
+
 ## Stack
 
 - **Framework:** Next.js (App Router)
