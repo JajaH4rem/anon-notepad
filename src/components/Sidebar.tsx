@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Note } from "@/types";
 
 // sidebar accepts notes object with 3 string fields
@@ -18,10 +18,18 @@ export default function Sidebar({
 }) {
   const [renameValue, setRenameValue] = useState<string>("");
   const [openNoteId, setOpenNoteId] = useState<string | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
   const [modal, setModal] = useState<{
     type: "rename" | "delete";
     noteId: string;
   } | null>(null);
+
+  useEffect(() => {
+    function getId() {
+      setUserId(localStorage.getItem("anonymousUserId"));
+    }
+    getId();
+  }, []);
 
   async function onDelete(id: string) {
     await fetch(`/api/notes/${id}`, {
@@ -43,6 +51,9 @@ export default function Sidebar({
 
   return (
     <div className="w-48 border-r border-border bg-surface flex flex-col">
+      <div className="px-4 py-2 text-sm">
+        {userId ? `${userId.slice(0, 6)}/anon-notes` : "anon-notes"}
+      </div>
       {openNoteId && (
         <div className="fixed inset-0" onClick={() => setOpenNoteId(null)} />
       )}
