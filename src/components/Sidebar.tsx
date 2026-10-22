@@ -51,53 +51,55 @@ export default function Sidebar({
 
   return (
     <div className="w-48 border-r border-border bg-surface flex flex-col">
-      <div className="px-4 py-2 text-sm">
+      <div className="h-10 px-4 flex items-center text-sm border-border">
         {userId ? `${userId.slice(0, 6)}/anon-notes` : "anon-notes"}
       </div>
       {openNoteId && (
         <div className="fixed inset-0" onClick={() => setOpenNoteId(null)} />
       )}
-      {notes.map((note) => (
-        <div
-          key={note.id}
-          className="flex items-center justify-between relative px-2 py-1 hover:bg-background group"
-        >
+      <div className="ml-3 border-l border-subtle">
+        {notes.map((note) => (
           <div
-            onClick={() => onSelectedAction(note)}
-            className="flex-1 truncate text-sm text-foreground cursor-pointer"
+            key={note.id}
+            className="flex items-center justify-between relative px-2 py-1 hover:bg-background group"
           >
-            {note.title}
-          </div>
-          <button
-            onClick={() => setOpenNoteId(note.id)}
-            className="text-muted hover:text-foreground opacity-0 group-hover:opacity-100 px-1 text-xs"
-          >
-            •••
-          </button>
-          {openNoteId === note.id && (
-            <div className="absolute top-full right-0 z-10 border border-border bg-surface shadow-sm min-w-24">
-              <button
-                onClick={() => {
-                  setOpenNoteId(null);
-                  setModal({ type: "delete", noteId: note.id });
-                }}
-                className="w-full text-left px-3 py-1.5 text-sm text-foreground hover:bg-background"
-              >
-                Delete
-              </button>
-              <button
-                onClick={() => {
-                  setOpenNoteId(null);
-                  setModal({ type: "rename", noteId: note.id });
-                }}
-                className="w-full text-left px-3 py-1.5 text-sm text-foreground hover:bg-background"
-              >
-                Rename
-              </button>
+            <div
+              onClick={() => onSelectedAction(note)}
+              className="flex-1 truncate text-sm text-foreground cursor-pointer"
+            >
+              {note.title}
             </div>
-          )}
-        </div>
-      ))}
+            <button
+              onClick={() => setOpenNoteId(note.id)}
+              className="text-muted hover:text-foreground opacity-0 group-hover:opacity-100 px-1 text-xs"
+            >
+              •••
+            </button>
+            {openNoteId === note.id && (
+              <div className="absolute top-full right-0 z-10 border border-border bg-surface shadow-sm min-w-24">
+                <button
+                  onClick={() => {
+                    setOpenNoteId(null);
+                    setModal({ type: "delete", noteId: note.id });
+                  }}
+                  className="w-full text-left px-3 py-1.5 text-sm text-foreground hover:bg-background"
+                >
+                  Delete
+                </button>
+                <button
+                  onClick={() => {
+                    setOpenNoteId(null);
+                    setModal({ type: "rename", noteId: note.id });
+                  }}
+                  className="w-full text-left px-3 py-1.5 text-sm text-foreground hover:bg-background"
+                >
+                  Rename
+                </button>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
 
       {modal && (
         <div className="fixed inset-0 flex items-center justify-center z-10">
