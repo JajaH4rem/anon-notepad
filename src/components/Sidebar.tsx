@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import type { Note } from "@/types";
 
 // sidebar accepts notes object with 3 string fields
 // id, title, and content
@@ -10,12 +11,8 @@ export default function Sidebar({
   onNoteDeletedAction,
   onNoteRenamedAction,
 }: {
-  notes: { id: string; title: string; content: string }[];
-  onSelectedAction: (note: {
-    id: string;
-    title: string;
-    content: string;
-  }) => void;
+  notes: Note[];
+  onSelectedAction: (note: Note) => void;
   onNoteDeletedAction: (deletedId: string) => void;
   onNoteRenamedAction: (renamedId: string, renamedTitle: string) => void;
 }) {
