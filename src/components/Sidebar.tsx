@@ -50,7 +50,10 @@ export default function Sidebar({
         <div className="fixed inset-0" onClick={() => setOpenNoteId(null)} />
       )}
       {notes.map((note) => (
-        <div key={note.id} className="flex items-center justify-between relative px-2 py-1 hover:bg-background group">
+        <div
+          key={note.id}
+          className="flex items-center justify-between relative px-2 py-1 hover:bg-background group"
+        >
           <div
             onClick={() => onSelectedAction(note)}
             className="flex-1 truncate text-sm text-foreground cursor-pointer"
@@ -90,7 +93,9 @@ export default function Sidebar({
           />
           <div className="relative z-10 bg-surface border border-border p-4 w-64 shadow-md">
             <p className="text-sm text-heading font-medium mb-3">
-              {modal.type === "delete" ? "Delete this note?" : "Rename this note?"}
+              {modal.type === "delete"
+                ? "Delete this note?"
+                : "Rename this note?"}
             </p>
 
             {modal.type === "rename" && (
@@ -107,7 +112,10 @@ export default function Sidebar({
 
             <div className="flex gap-2 justify-end">
               <button
-                onClick={() => { setModal(null); setOpenNoteId(null); }}
+                onClick={() => {
+                  setModal(null);
+                  setOpenNoteId(null);
+                }}
                 className="px-3 py-1 text-sm text-muted hover:text-foreground border border-border"
               >
                 Cancel
@@ -122,7 +130,10 @@ export default function Sidebar({
                     const noOverwriteContent = notes.find(
                       (note) => note.id === modal.noteId
                     );
-                    await onRename(modal.noteId, noOverwriteContent?.content ?? "");
+                    await onRename(
+                      modal.noteId,
+                      noOverwriteContent?.content ?? ""
+                    );
                     onNoteRenamedAction(modal.noteId, renameValue);
                     setOpenNoteId(null);
                   }
