@@ -117,12 +117,13 @@ export default function Sidebar({
             <p className="text-sm text-heading font-medium mb-3">
               {modal.type === "delete"
                 ? "Delete this note?"
-                : "Rename this note?"}
+                : "Rename note"}
             </p>
 
             {modal.type === "rename" && (
               <input
                 value={renameValue}
+                placeholder="New Name"
                 onChange={(e) => setRenameValue(e.target.value)}
                 className="w-full border border-border bg-background text-foreground text-sm px-2 py-1 mb-3 outline-none focus:border-muted"
               />
