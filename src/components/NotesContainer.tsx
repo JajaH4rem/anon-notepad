@@ -12,6 +12,20 @@ export default function NotesContainer() {
   const [notes, setNotes] = useState<Note[]>([]);
   const [openTabs, setOpenTabs] = useState<Note[]>([]);
 
+  // load tabs from localStorage on page load or mount
+  // use inner function to avoid react-hooks/set-state-in-effect ESLint warning
+  useEffect(() => {
+    function getLocalTabs() {
+      const userId = localStorage.getItem("anonymousUserId");
+      if (!userId) return;
+      const saved = localStorage.getItem(`openTabs:${userId}`);
+      if (!saved) return;
+      const parsed: Note[] = JSON.parse(saved);
+      setOpenTabs(parsed);
+    }
+    getLocalTabs();
+  }, []);
+
   // invokable function to fetch notes
   async function fetchNotes() {
     const userId = localStorage.getItem("anonymousUserId");
@@ -28,6 +42,13 @@ export default function NotesContainer() {
       return [...previous, note];
     });
   }
+
+  // save openTabs to localStorage whenever it changes
+  useEffect(() => {
+    const userId = localStorage.getItem("anonymousUserId");
+    if (!userId) return;
+    localStorage.setItem(`openTabs:${userId}`, JSON.stringify(openTabs));
+  }, [openTabs]);
 
   // initial render fetch via invoking fetchNotes
   useEffect(() => {
