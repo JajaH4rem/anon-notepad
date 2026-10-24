@@ -66,7 +66,7 @@ export default function NotesContainer() {
 
   return (
     <div className="flex flex-col h-screen">
-      <TabBar />
+      <TabBar openTabs={openTabs} />
       {/* Container for Sidebar, Toolbar, and Editor. Takes space side-by-side */}
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar -- takes left side of container */}
