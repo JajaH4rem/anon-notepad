@@ -1,4 +1,5 @@
-export default function TabBar() {
+import type { Note } from "@/types";
+export default function TabBar({ openTabs }: { openTabs: Note[] }) {
   return (
     <div className="h-10 border-b border-border bg-surface flex items-center">
       {/* app label — same width as sidebar */}
