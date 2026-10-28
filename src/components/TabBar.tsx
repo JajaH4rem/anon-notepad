@@ -1,4 +1,5 @@
 import type { Note } from "@/types";
+
 export default function TabBar({ openTabs }: { openTabs: Note[] }) {
   return (
     <div className="h-10 border-b border-border bg-surface flex items-center">
@@ -7,16 +8,14 @@ export default function TabBar({ openTabs }: { openTabs: Note[] }) {
         anon-notepad
       </div>
 
-      {/* tab placeholders */}
-      <div className="h-full flex items-center px-4 border-r border-border text-xs text-muted">
-        My Note
-      </div>
-      <div className="h-full flex items-center px-4 border-r border-border text-xs text-muted">
-        Another Note
-      </div>
-      <div className="h-full flex items-center px-4 border-r border-border text-xs text-muted">
-        Untitled
-      </div>
+      {openTabs.map((tab) => (
+        <div
+          key={tab.id}
+          className="h-full flex items-center px-4 border-r border-border text-xs text-muted"
+        >
+          {tab.title}
+        </div>
+      ))}
     </div>
   );
 }
