@@ -13,17 +13,24 @@ export default function NotesContainer() {
   const [selectedNote, setSelectedNote] = useState<Note | null>(null);
   const [notes, setNotes] = useState<Note[]>([]);
   const [openTabs, setOpenTabs] = useState<Note[]>([]);
+  const [hasLoadedTabs, setHasLoadedTabs] = useState(false);
 
   // load tabs from localStorage on page load or mount
   // use inner function to avoid react-hooks/set-state-in-effect ESLint warning
   useEffect(() => {
     function getLocalTabs() {
-      const userId = localStorage.getItem("anonymousUserId");
-      if (!userId) return;
-      const saved = localStorage.getItem(`openTabs:${userId}`);
-      if (!saved) return;
-      const parsed: Note[] = JSON.parse(saved);
-      setOpenTabs(parsed);
+      try {
+        const userId = localStorage.getItem("anonymousUserId");
+        if (!userId) return;
+        const saved = localStorage.getItem(`openTabs:${userId}`);
+        if (!saved) return;
+        const parsed: Note[] = JSON.parse(saved);
+        setOpenTabs(parsed);
+      } catch {
+        // do nothing
+      } finally {
+        setHasLoadedTabs(true);
+      }
     }
     getLocalTabs();
   }, []);
@@ -47,10 +54,11 @@ export default function NotesContainer() {
 
   // save openTabs to localStorage whenever it changes
   useEffect(() => {
+    if (!hasLoadedTabs) return; //no overwrite, initial load only
     const userId = localStorage.getItem("anonymousUserId");
     if (!userId) return;
     localStorage.setItem(`openTabs:${userId}`, JSON.stringify(openTabs));
-  }, [openTabs]);
+  }, [openTabs, hasLoadedTabs]);
 
   // initial render fetch via invoking fetchNotes
   useEffect(() => {
