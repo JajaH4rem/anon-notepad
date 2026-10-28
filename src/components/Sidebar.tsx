@@ -8,11 +8,13 @@ import FolderIcon from "./icons/FolderIcon";
 // id, title, and content
 export default function Sidebar({
   notes,
+  selectedNoteId,
   onSelectedAction,
   onNoteDeletedAction,
   onNoteRenamedAction,
 }: {
   notes: Note[];
+  selectedNoteId?: string | null;
   onSelectedAction: (note: Note) => void;
   onNoteDeletedAction: (deletedId: string) => void;
   onNoteRenamedAction: (renamedId: string, renamedTitle: string) => void;
@@ -115,9 +117,7 @@ export default function Sidebar({
           />
           <div className="relative z-20 bg-surface border border-border p-4 w-64 shadow-md">
             <p className="text-sm text-heading font-medium mb-3">
-              {modal.type === "delete"
-                ? "Delete this note?"
-                : "Rename note"}
+              {modal.type === "delete" ? "Delete this note?" : "Rename note"}
             </p>
 
             {modal.type === "rename" && (

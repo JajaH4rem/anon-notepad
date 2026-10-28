@@ -73,6 +73,7 @@ export default function NotesContainer() {
         <Sidebar
           notes={notes}
           onSelectedAction={setSelectedNote}
+          selectedNoteId={selectedNote?.id}
           onNoteDeletedAction={(deletedId: string) => {
             fetchNotes();
             if (selectedNote?.id === deletedId) setSelectedNote(null);
