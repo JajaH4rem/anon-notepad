@@ -69,7 +69,9 @@ export default function Sidebar({
         {notes.map((note) => (
           <div
             key={note.id}
-            className="flex items-center justify-between relative px-2 py-1 hover:bg-background group"
+            className={`flex items-center justify-between relative px-2 py-1 group ${
+              note.id === selectedNoteId ? "bg-background" : "hover:bg-background"
+            }`}
           >
             <div
               onClick={() => onSelectedAction(note)}
